@@ -1,0 +1,10 @@
+MyLast – Scrieti un program (script) shell care emuleaza comportamentul
+comenzilor last/lastb folosind in acest sens continutul fisierului /var/log/auth.log[1-4]
+(Atentie: nu /var/log/wtmp sau /var/log/btmp care sunt fisiere binare). 
+Implementarea trebuie sa suporte minimal comportamentul comenzilor last/lastb indus de folosirea flag-urilor
+-n, -p, -s, -t. Puteti implementa doua comenzi diferite, la fel ca in cazul last/lastb,
+sau puteti implementa o singura comanda care sa emuleze comportamentul celor doua.
+
+Obs: Comanda less stie sa decomprime fisiere de tip gzip, adica puteti rula comanda less
+/var/log/auth.log.3.gz si sa obtineti rezultatul anticipat, dar alte comenzi, de pilda grep
+sau more, nu stiu.
