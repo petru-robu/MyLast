@@ -1,0 +1,27 @@
+2025-01-03T17:27:19.505990+02:00 petru-rog lightdm: pam_unix(lightdm-greeter:session): session opened for user lightdm(uid=114) by (uid=0)
+2025-01-03T17:27:19.533005+02:00 petru-rog systemd-logind[929]: New session c1 of user lightdm.
+2025-01-03T17:27:19.556633+02:00 petru-rog (systemd): pam_unix(systemd-user:session): session opened for user lightdm(uid=114) by lightdm(uid=0)
+2025-01-03T17:27:19.806521+02:00 petru-rog lightdm: gkr-pam: couldn't unlock the login keyring.
+2025-01-03T17:27:20.311932+02:00 petru-rog lightdm: pam_succeed_if(lightdm:auth): requirement "user ingroup nopasswdlogin" not met by user "petru"
+2025-01-03T17:27:22.930130+02:00 petru-rog lightdm: gkr-pam: unable to locate daemon control file
+2025-01-03T17:27:22.930205+02:00 petru-rog lightdm: gkr-pam: stashed password to try later in open session
+2025-01-03T17:27:23.136224+02:00 petru-rog lightdm: pam_unix(lightdm:session): session opened for user petru(uid=1000) by (uid=0)
+2025-01-03T17:27:23.139101+02:00 petru-rog systemd-logind[929]: Removed session c1.
+2025-01-03T17:27:23.147142+02:00 petru-rog systemd-logind[929]: New session c2 of user petru.
+2025-01-03T17:27:23.168807+02:00 petru-rog (systemd): pam_unix(systemd-user:session): session opened for user petru(uid=1000) by petru(uid=0)
+2025-01-03T17:27:23.353720+02:00 petru-rog lightdm: gkr-pam: unlocked login keyring
+2025-01-03T17:27:23.644458+02:00 petru-rog gnome-keyring-daemon[1503]: The PKCS#11 component was already initialized
+2025-01-03T17:27:23.644684+02:00 petru-rog gnome-keyring-daemon[1503]: The Secret Service was already initialized
+2025-01-03T17:27:23.644916+02:00 petru-rog gnome-keyring-daemon[1663]: discover_other_daemon: 1
+2025-01-03T17:27:23.645144+02:00 petru-rog gnome-keyring-daemon[1664]: discover_other_daemon: 1
+2025-01-03T17:27:23.648013+02:00 petru-rog gnome-keyring-daemon[1665]: discover_other_daemon: 1
+2025-01-03T17:27:25.085536+02:00 petru-rog polkitd[918]: Registered Authentication Agent for unix-session:c2 (system bus name :1.67 [/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1], object path /org/gnome/PolicyKit1/AuthenticationAgent, locale en_US.UTF-8)
+2025-01-03T17:27:33.465473+02:00 petru-rog (sd-pam): pam_unix(systemd-user:session): session closed for user lightdm
+2025-01-03T17:27:36.646965+02:00 petru-rog gnome-keyring-daemon[1503]: asked to register item /org/freedesktop/secrets/collection/login/1, but it's already registered
+2025-01-03T17:27:46.282176+02:00 petru-rog gnome-keyring-daemon[1503]: asked to register item /org/freedesktop/secrets/collection/login/1, but it's already registered
+2025-01-03T17:30:01.113209+02:00 petru-rog CRON[7545]: pam_unix(cron:session): session opened for user root(uid=0) by root(uid=0)
+2025-01-03T17:30:01.114866+02:00 petru-rog CRON[7545]: pam_unix(cron:session): session closed for user root
+2025-01-03T17:30:33.659605+02:00 petru-rog sudo: pam_unix(sudo:auth): conversation failed
+2025-01-03T17:30:33.660022+02:00 petru-rog sudo: pam_unix(sudo:auth): auth could not identify password for [petru]
+2025-01-03T17:30:38.571612+02:00 petru-rog sudo:    petru : TTY=pts/1 ; PWD=/home/petru/Code/MyLast ; USER=root ; COMMAND=/usr/bin/cp /var/log/auth.log ./
+2025-01-03T17:30:38.572103+02:00 petru-rog sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)
