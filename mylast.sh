@@ -4,7 +4,23 @@ LOG_FILE1="/var/log/auth.log"
 LOG_FILE2="/var/log/auth.log.1"
 LOG_FILE3="/var/log/auth.log.2"
 LOG_FILE4="/var/log/auth.log.3"
+LOG_FILE5="/var/log/auth.log.4"
 
+
+if [ "$EUID" -ne 0 ]; then
+  echo "Pentru deazarchivarea fiserelor sunt necesare permisiuni root! Introduceti parola! <3"
+  exec sudo "$0" "$@"
+  exit
+fi
+
+echo "Se incepe executia scriptului. Atentie, programul poate dura mai mult."
+
+
+find /var/log/ -type f -name "*auth.log*.gz" -exec sh -c '
+  for file; do
+    gunzip -c "$file" > "${file%.gz}"
+  done
+' sh {} +
 
 output=""
 format='+%Y-%m-%d %H:%M'
@@ -23,25 +39,21 @@ do
         n) lineMAX=${OPTARG};;
     esac
 done
-# echo "Since: $sinceDate"
-# echo "Till: $tillDate"
-# echo "Present: $presentDate"
+
 
 parse_log(){
     local log_file=$1
-    
 
     while read -r line; do
         timestamp=$(echo $line | awk '{print $1}')
 
         date=$(echo "$timestamp" | awk -F'T' '{print $1, $2}' | cut -d. -f1 | xargs -I {} date -d "{}" +"%a %b %d %H:%M")
         correctDate=$(date --date="$timestamp" "$format")
-        # echo "$sinceDate $correctDate $tillDate"
 
         hostname=$(echo $line | awk '{print $2}')
 
         if [[ $correctDate > $sinceDate && $correctDate < $tillDate && $correctDate =~ $presentDate ]]; then
-            # output+="$correctDate\n"
+
             proc=$(echo $line | awk '{
                 proc="";
                 for (i = NF; i > 0; i--) 
@@ -91,11 +103,11 @@ parse_log(){
     done < $log_file
 }
 
+parse_log $LOG_FILE5
 parse_log $LOG_FILE4
 parse_log $LOG_FILE3
 parse_log $LOG_FILE2
 parse_log $LOG_FILE1
-
 
 output=$(echo -e "$output" | tac)
 
