@@ -2,8 +2,9 @@
 
 LOG_FILE1="/var/log/auth.log"
 LOG_FILE2="/var/log/auth.log.1"
-LOG_FILE3="/var/log/auth.log.2.gz"
-LOG_FILE4="/var/log/auth.log.3.gz"
+LOG_FILE3="/var/log/auth.log.2"
+LOG_FILE4="/var/log/auth.log.3"
+
 
 output=""
 format='+%Y-%m-%d %H:%M'
@@ -11,6 +12,7 @@ sinceDate=$(date --date="1 year ago" "$format")
 tillDate=$(date --date="tomorrow" "$format")
 presentDate="[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]:[0-9][0-9]"
 lineMAX=-1
+
 
 while getopts s:t:p:n: flag
 do
@@ -28,11 +30,13 @@ done
 parse_log(){
     local log_file=$1
     
+
     while read -r line; do
         timestamp=$(echo $line | awk '{print $1}')
 
         date=$(echo "$timestamp" | awk -F'T' '{print $1, $2}' | cut -d. -f1 | xargs -I {} date -d "{}" +"%a %b %d %H:%M")
-        correctDate=$(date --date="$date" "$format")
+        correctDate=$(date --date="$timestamp" "$format")
+        # echo "$sinceDate $correctDate $tillDate"
 
         hostname=$(echo $line | awk '{print $2}')
 
@@ -84,9 +88,11 @@ parse_log(){
             fi
         fi
 
-    done < $1
+    done < $log_file
 }
 
+parse_log $LOG_FILE4
+parse_log $LOG_FILE3
 parse_log $LOG_FILE2
 parse_log $LOG_FILE1
 
@@ -97,6 +103,6 @@ lineNR=-1
 while IFS= read -r line; do
     ((lineNR++))
     if [[ $lineMAX == -1 || $lineNR -le $lineMAX && $lineNR -gt 0 ]]; then
-        echo "$lineNR: $line"
+        echo "$line"
     fi
 done <<< "$output"
